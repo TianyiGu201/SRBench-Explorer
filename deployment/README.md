@@ -1,8 +1,7 @@
 # GitHub Pages frontend + Cloudflare R2 data
 
-`TianyiGu201/SRBench` can publish its frontend at
-`https://tianyigu201.github.io/SRBench/` once the repository is public and
-GitHub Pages is enabled. The existing Cloudflare Pages site at
+`TianyiGu201/SRBench` publishes its frontend at
+`https://tianyigu201.github.io/SRBench/`. The existing Cloudflare Pages site at
 `https://srbench.pages.dev/` can remain available. Both sites use the same
 public R2 bucket; no research data is committed to GitHub.
 
@@ -134,9 +133,9 @@ website source and deployment scripts, but no R2 credentials or research data.
 
 In **Settings > Pages > Build and deployment**, set **Source** to **GitHub
 Actions**. The committed `.github/workflows/pages.yml` installs frontend
-dependencies, checks TypeScript, builds with `VITE_BASE_PATH=/SRBench/`, the
-public R2 URL, and `VITE_DATA_COMPRESSION=gzip`, then uploads only `front/dist`
-to GitHub Pages. Trigger **Actions > Deploy SRBench to GitHub Pages > Run
+dependencies, checks TypeScript, sets `VITE_BASE_PATH` from the repository
+name, uses the public R2 URL and `VITE_DATA_COMPRESSION=gzip`, then uploads
+only `front/dist` to GitHub Pages. Trigger **Actions > Deploy SRBench to GitHub Pages > Run
 workflow** once if changing visibility does not start a deployment. The
 expected URL is `https://tianyigu201.github.io/SRBench/`.
 
@@ -146,6 +145,19 @@ hash routing, so links under `/#/` require no rewrite rule. Verify the dataset
 list, an NPY image, out-of-sample regions, CSV download, and TIFF download.
 The R2 `r2.dev` hostname is suitable for testing; use an R2 custom domain for
 production caching and to avoid development-endpoint rate limits.
+
+### Rename the repository
+
+To display the project name in the repository URL, rename `SRBench` to
+`SRBench-Explorer` in **Settings > General > Repository name > Rename**. GitHub
+repository names cannot contain spaces, while the website title remains
+`SRBench Explorer`. After renaming, open **Actions > Deploy SRBench to GitHub
+Pages > Run workflow** to publish with the new base path. The new URL is
+`https://tianyigu201.github.io/SRBench-Explorer/`; GitHub does not redirect
+the old Pages URL. The R2 CORS origin stays
+`https://tianyigu201.github.io` because the URL path is not part of the origin.
+Check the Cloudflare Pages GitHub connection after the rename if continuing to
+use that site.
 
 ## Existing Cloudflare Pages deployment
 

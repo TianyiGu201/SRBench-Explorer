@@ -36,14 +36,16 @@ jobs:
       - name: Build frontend for GitHub Pages
         working-directory: front
         env:
-          VITE_BASE_PATH: /SRBench/
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
           VITE_DATA_BASE_URL: https://pub-8360a1ebefc848bdb9ca66b5f1502de3.r2.dev
           VITE_DATA_COMPRESSION: gzip
         run: npm run build
       - name: Verify GitHub Pages asset paths
+        env:
+          PAGES_REPO_NAME: ${{ github.event.repository.name }}
         run: |
           test -f front/dist/index.html
-          grep -q '/SRBench/assets/' front/dist/index.html
+          grep -Fq "/${PAGES_REPO_NAME}/assets/" front/dist/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v5
         with:
