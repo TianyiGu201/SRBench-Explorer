@@ -6,7 +6,7 @@ const NavItem: React.FC<{ to: string; icon: React.ReactNode; label: string }> = 
   <NavLink
     to={to}
     className={({ isActive }) =>
-      `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+      `flex shrink-0 items-center whitespace-nowrap px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
         isActive
           ? 'bg-blue-600 text-white'
           : 'text-gray-300 hover:bg-gray-800 hover:text-white'
@@ -20,17 +20,17 @@ const NavItem: React.FC<{ to: string; icon: React.ReactNode; label: string }> = 
 
 const Layout: React.FC = () => {
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden font-sans">
+    <div className="flex h-screen flex-col bg-gray-50 overflow-hidden font-sans md:flex-row">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col flex-shrink-0">
-        <div className="p-6 border-b border-gray-800">
+      <aside className="flex w-full flex-shrink-0 flex-col bg-gray-900 text-white md:w-64">
+        <div className="border-b border-gray-800 p-4 md:p-6">
           <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
             SRBench
           </h1>
-          <p className="text-xs text-gray-500 mt-1">Exploring Super-Resolution Strategies for Spatial Transcriptomics</p>
+          <p className="mt-1 hidden text-xs text-gray-500 md:block">Exploring Super-Resolution Strategies for Spatial Transcriptomics</p>
         </div>
         
-        <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+        <nav className="flex gap-2 overflow-x-auto px-3 py-2 md:block md:flex-1 md:space-y-2 md:overflow-y-auto md:px-4 md:py-6">
           <NavItem to="/study-design" icon={<FileText size={20} />} label="Platform Design" />
           <NavItem to="/dataset-overview" icon={<LayoutDashboard size={20} />} label="Dataset Overview" />
           <NavItem to="/metric-vis" icon={<Activity size={20} />} label="Metric Visualization" />
@@ -38,13 +38,13 @@ const Layout: React.FC = () => {
           <NavItem to="/diff-resolution" icon={<Layers size={20} />} label="Initial Resolution" />         
         </nav>
 
-        <div className="p-4 border-t border-gray-800 text-xs text-gray-500 text-center">
+        <div className="hidden border-t border-gray-800 p-4 text-center text-xs text-gray-500 md:block">
            © 2026 SRBench Project
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto relative">
+      <main className="relative min-h-0 min-w-0 flex-1 overflow-auto">
         <Outlet />
       </main>
     </div>
