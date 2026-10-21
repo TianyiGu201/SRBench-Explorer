@@ -1,7 +1,7 @@
 # GitHub Pages frontend + Cloudflare R2 data
 
-`TianyiGu201/SRBench` publishes its frontend at
-`https://tianyigu201.github.io/SRBench/`. The existing Cloudflare Pages site at
+`TianyiGu201/SRBench-Explorer` publishes its frontend at
+`https://tianyigu201.github.io/SRBench-Explorer/`. The existing Cloudflare Pages site at
 `https://srbench.pages.dev/` can remain available. Both sites use the same
 public R2 bucket; no research data is committed to GitHub.
 
@@ -100,7 +100,7 @@ custom domain such as `https://data.example.org` for production. A custom
 domain requires a domain you control in Cloudflare. Set the bucket CORS policy
 from `r2-cors.example.json`. It lists both current frontend origins:
 `https://srbench.pages.dev` and `https://tianyigu201.github.io`. The GitHub
-origin does not include `/SRBench/`; CORS origins contain only the scheme and
+origin does not include `/SRBench-Explorer/`; CORS origins contain only the scheme and
 hostname. In the bucket's **Settings > CORS Policy > Add CORS policy > JSON**
 editor, paste the policy. Check public access and CORS, for example:
 
@@ -126,7 +126,7 @@ current static frontend would then need an authenticated data transport.
 ## 5. Publish the frontend with GitHub Pages
 
 After checking the source and Git history for credentials, change the
-`TianyiGu201/SRBench` repository visibility to **Public** in **Settings >
+`TianyiGu201/SRBench-Explorer` repository visibility to **Public** in **Settings >
 General > Danger Zone > Change repository visibility**. GitHub Free cannot
 publish Pages directly from a private repository. The repository includes
 website source and deployment scripts, but no R2 credentials or research data.
@@ -135,9 +135,9 @@ In **Settings > Pages > Build and deployment**, set **Source** to **GitHub
 Actions**. The committed `.github/workflows/pages.yml` installs frontend
 dependencies, checks TypeScript, sets `VITE_BASE_PATH` from the repository
 name, uses the public R2 URL and `VITE_DATA_COMPRESSION=gzip`, then uploads
-only `front/dist` to GitHub Pages. Trigger **Actions > Deploy SRBench to GitHub Pages > Run
+only `front/dist` to GitHub Pages. Trigger **Actions > Deploy SRBench Explorer to GitHub Pages > Run
 workflow** once if changing visibility does not start a deployment. The
-expected URL is `https://tianyigu201.github.io/SRBench/`.
+expected URL is `https://tianyigu201.github.io/SRBench-Explorer/`.
 
 Before the browser test, add `https://tianyigu201.github.io` to R2 CORS while
 keeping the existing `https://srbench.pages.dev` origin. The frontend uses
@@ -146,15 +146,11 @@ list, an NPY image, out-of-sample regions, CSV download, and TIFF download.
 The R2 `r2.dev` hostname is suitable for testing; use an R2 custom domain for
 production caching and to avoid development-endpoint rate limits.
 
-### Rename the repository
+### Repository rename
 
-To display the project name in the repository URL, rename `SRBench` to
-`SRBench-Explorer` in **Settings > General > Repository name > Rename**. GitHub
-repository names cannot contain spaces, while the website title remains
-`SRBench Explorer`. After renaming, open **Actions > Deploy SRBench to GitHub
-Pages > Run workflow** to publish with the new base path. The new URL is
-`https://tianyigu201.github.io/SRBench-Explorer/`; GitHub does not redirect
-the old Pages URL. The R2 CORS origin stays
+The repository is named `SRBench-Explorer`, and the website title is
+`SRBench Explorer`. GitHub does not redirect the old `/SRBench/` Pages URL.
+The R2 CORS origin stays
 `https://tianyigu201.github.io` because the URL path is not part of the origin.
 Check the Cloudflare Pages GitHub connection after the rename if continuing to
 use that site.

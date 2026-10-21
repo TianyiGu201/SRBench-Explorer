@@ -1,4 +1,4 @@
-name: Deploy SRBench to GitHub Pages
+name: Deploy SRBench Explorer to GitHub Pages
 
 on:
   push:

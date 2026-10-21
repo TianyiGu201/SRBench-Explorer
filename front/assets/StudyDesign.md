@@ -10,18 +10,7 @@ This platform provides interactive visualization of benchmarking results for com
 
 The core benchmarking strategy involves collecting high-resolution SRT datasets, intentionally lowering their resolution to simulate low-resolution input, and using the original high-resolution data as ground truth to evaluate prediction performance. In our study, we evaluated accuracy, scalability and usability of each super-resolution method. Here, in this platform, we focus on the visualization of the prediction accuracy.
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐     ┌───────────────┐
-│  High-Res SRT   │     │  LR Simulation  │     │  SR Prediction  │     │   Evaluation  │
-├─────────────────┤     ├─────────────────┤     ├─────────────────┤     ├───────────────┤
-│   Xenium        │     │ Spot Layout     │     │    XFuse        │     │  Accuracy     │
-│   CosMx SMI     │ --> │ Size & Distance │ --> │    TESLA        │ --> │  Scalability  │
-│   Visium HD     │     │ Downsampling    │     │    iSTAR        │     │  Usability    │
-└─────────────────┘     └─────────────────┘     │    scstGCN      │     └───────────────┘
-                                                │    SuperST_t    │    
-                                                │    SuperST_t_g  │
-                                                └─────────────────┘
-```
+<!-- study-workflow -->
 
 ---
 
@@ -98,5 +87,4 @@ We use a suite of statistical metrics to quantify the similarity between predict
 | **PARnorm** (Normalized Prediction accuracy rank) | Normalized average rank across PCC, SCC, JSD, and KLD; lower values indicate better overall performance. Range: [0, 1]. |
 | **SSIM** (Structural Similarity Index) | Evaluates the preservation of spatial patterns and structures in the expression map. Range: [0, 1]. |
 | **PSNR** (Peak Signal-to-Noise Ratio) | Quantifies reconstruction quality; higher values indicate lower error relative to signal strength. Range: [0, +∞). |
-
 
